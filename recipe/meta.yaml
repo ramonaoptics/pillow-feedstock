@@ -20,7 +20,7 @@ source:
     - patches/0005-Relaxed-child-images-check-to-allow-for-libjpeg.patch
 
 build:
-  number: 0
+  number: 501
 
 requirements:
   build:
@@ -67,26 +67,6 @@ test:
     - PIL
     - PIL.Image
     - PIL.ImageCms
-  source_files:
-    # from upstream repo
-    - Tests/
-  files:
-    # from recipe; some images cannot be in upstream repo, see Tests/README
-    - Tests/images
-  requires:
-    - pytest
-    - pytest-timeout
-    # test dependency, see Tests/test_image_access.py
-    - setuptools
-    - {{ compiler('c') }}
-    # for run_test.py
-    - fsspec
-    - aiohttp
-    - requests
-  commands:
-    - pytest -v -k "not ({{ tests_to_skip }})"  # [not ppc64le]
-    # NOTE: test suite is skipped on ppc due to bugs in QEMU code that cause
-    # CI to fail, even though the tests should run through on native hardware
 
 about:
   home: https://pillow.readthedocs.io
